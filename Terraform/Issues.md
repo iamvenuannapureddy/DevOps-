@@ -40,4 +40,4 @@
    - **Problem:** As infrastructure grows, the resource dependency graph can become overly complex, leading to issues with order of operations or unexpected behavior.
    - **Solution:** Use clear modules, simplify the architecture where possible, and thoroughly test changes in isolated environments.
 
-Addressing these challenges with the right practices ensures smoother Terraform workflows in DevOps projects.
+
