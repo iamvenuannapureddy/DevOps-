@@ -20,6 +20,8 @@
      - **`plan`**: Previews changes that will be applied.
      - **`apply`**: Applies the changes to the infrastructure.
      - **`destroy`**: Destroys the infrastructure defined in the code.
+     - **'validate'**: Checks whether the configuration is syntactically valid.
+     - **'fmt'**: Formats the code according to Terraform’s style conventions.
    
 ### 5. **Idempotency**
    - Terraform ensures that applying the same configuration multiple times results in the same infrastructure state (no unintended changes).
@@ -45,9 +47,11 @@
 
 ### 11. **Resource Dependencies**
    - Terraform manages **implicit dependencies** based on resource references, but you can also define **explicit dependencies** using the `depends_on` attribute.
+   - **Resource Lifecycle**: Use 'create_before_destroy' and 'prevent_destroy lifecycle' rules to control how resources are created and destroyed.
 
 ### 12. **Workspaces**
    - **Workspaces** allow you to manage multiple environments (e.g., dev, staging, production) in a single configuration by separating the state files for each environment.
+   - **Environment Variables**: Leverage environment variables (e.g., for provider credentials) to separate configuration from sensitive data.
 
 ### 13. **Versioning**
    - Always specify versions for your Terraform binary and provider plugins in the configuration to ensure consistency across deployments.
@@ -55,7 +59,8 @@
 
 ### 14. **Terraform Cloud and Enterprise**
    - Terraform Cloud/Enterprise provides a hosted solution for remote execution, state management, and collaboration, offering features like policy enforcement, cost estimation, and private module registries.
-
+   - **Terragrunt**: A wrapper tool for Terraform, useful for managing complex multi-environment setups by promoting DRY practices and simplifying the management of remote state and configuration.
+     
 ### 15. **Error Handling**
    - Understand how to troubleshoot errors in Terraform logs (`terraform apply` and `terraform plan` outputs).
    - Use `terraform taint` to mark resources for recreation, and `terraform refresh` to sync the state file with real-world infrastructure.
@@ -74,9 +79,13 @@
 ### 19. **Security Best Practices**
    - Never commit sensitive data (like secrets or credentials) to the Terraform codebase.
    - Use Vault or similar tools to manage secrets, and refer to these using environment variables or encrypted backends.
+   - **DRY Principle**: Avoid repeating yourself by using modules and workspaces efficiently.
+   - Never store sensitive data (like passwords or keys) directly in your .tf files or state files. Use secrets management solutions.
 
 ### 20. **Automated Workflows**
    - Integrate Terraform with CI/CD pipelines (e.g., Jenkins) for automatic provisioning.
    - Make sure to test changes in a staging environment before applying them to production.
+   - **Rollback Strategies**: In case of failure, have a rollback strategy. Use versioned state files to revert infrastructure to a previous state.
+   - **Debugging**: Use TF_LOG environment variables to enable debug logging when troubleshooting.
 
 By mastering these Terraform key points, you'll be well-prepared to handle the infrastructure automation demands as a DevOps engineer.
