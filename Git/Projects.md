@@ -1,6 +1,6 @@
 <h1>Projects on GIT</h1>
 
-### 1. **Basic Git Repository Setup**
+### 1. **Basic Git Repository Setup** ✔
    - **Goal**: Learn the basics of Git for version control.
    - **Steps**:
      - Initialize a Git repository using `git init`.
