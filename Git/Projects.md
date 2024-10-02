@@ -1,4 +1,4 @@
-Git <h1>Projects on GIT</h1>
+<h1>Projects on GIT</h1>
 
 ### 1. **Basic Git Repository Setup**
    - **Goal**: Learn the basics of Git for version control.
