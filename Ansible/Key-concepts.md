@@ -1,4 +1,4 @@
-<h1>key concepts of Ansible</h1>
+<h1>Key concepts in Ansible</h1>
 
 ### 1. **Agentless Architecture**
    - **Ansible** is agentless, meaning no software agents need to be installed on target machines. It uses SSH (Linux) or WinRM (Windows) to connect and execute tasks remotely.
