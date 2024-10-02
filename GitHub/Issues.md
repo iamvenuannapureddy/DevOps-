@@ -1,4 +1,4 @@
-<h1>GitHub issues</h1>
+<h1>GitHub Issues</h1>
 
 ### 1. **Permission Denied (Publickey)**
    - **Cause**: You do not have the correct SSH key configured or added to your GitHub account.
