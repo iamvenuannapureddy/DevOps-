@@ -17,14 +17,14 @@
      - Commit and push your changes.
      - Create a Pull Request (PR) to suggest changes to the original repository.
 
-### 3. **Feature Branch Workflow**
+### 3. **Feature Branch Workflow**✔
    - **Goal**: Work on individual features in isolation before integrating them.
    - **Steps**:
      - Create a feature branch using `git checkout -b feature/branch-name`.
      - Make your changes, then commit them.
      - When the feature is complete, merge it into the main branch using `git merge` or submit a PR if working with a team.
 
-### 4. **Git with Continuous Integration (CI) Tools**
+### 4. **Git with Continuous Integration (CI) Tools**✔
    - **Goal**: Set up Git to trigger automated tests on commit or pull requests.
    - **Steps**:
      - Set up a repository in GitHub.
