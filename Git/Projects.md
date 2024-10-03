@@ -8,8 +8,7 @@
      - Explore branching and merging using `git branch`, `git checkout`, and `git merge`.
      - Push your code to a remote repository (e.g., GitHub) using `git push`.
 
-### 2. **Collaborative Open-Source Projects**![SoExcited~GIF](https://github.com/user-attachments/assets/69f366ec-6201-4276-94af-f5156fa446f9)
-
+### 2. **Collaborative Open-Source Projects**✔
    - **Goal**: Contribute to an open-source project.
    - **Steps**:
      - Fork the repository on GitHub.
