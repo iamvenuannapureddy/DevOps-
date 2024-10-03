@@ -139,3 +139,56 @@ Once you create a PR, the maintainers of the project will review it. They may as
 ---
 
 By following these steps, you will be able to contribute to open-source projects effectively while working collaboratively with other developers! Let me know if you need any further help with specific steps!
+
+Issue arised
+
+If no notification shows up after you push your branch to your forked repository, you can still manually create a Pull Request (PR). Here’s what to do:
+
+### Steps to Create a Pull Request (Manually):
+
+#### 1. **Go to Your Forked Repository on GitHub**
+Navigate to your forked repository on GitHub by visiting:
+```
+https://github.com/<your-username>/<repository-name>
+```
+
+#### 2. **Switch to Your Branch**
+In your forked repository, switch to the branch that you pushed (e.g., `my-feature-branch`):
+
+1. On the repository page, click the **Branch** dropdown (usually next to the branch name, which is probably `main` or `master`).
+2. Select the branch you just pushed (e.g., `my-feature-branch`).
+
+#### 3. **Click on the "Pull Request" Tab**
+At the top of the repository page, you will see multiple tabs (Code, Issues, Pull Requests, etc.). Click on the **Pull requests** tab.
+
+#### 4. **Click "New Pull Request"**
+On the Pull Requests page, click the **New pull request** button on the right-hand side.
+
+#### 5. **Compare Changes**
+GitHub will now show a comparison view:
+- **Base Repository**: This should be the original repository (or `upstream`) you are trying to contribute to.
+- **Base Branch**: This is the branch in the original repository (e.g., `main` or `master`) where your changes will be merged.
+- **Head Repository**: This will be your forked repository.
+- **Compare Branch**: This should be the branch you just pushed (`my-feature-branch`).
+
+Make sure these fields are correct. If they are not, use the dropdowns to select the right base and compare branches.
+
+#### 6. **Create the Pull Request**
+1. Once the branches are correctly set, you’ll see a green button labeled **Create pull request**. Click it.
+2. Provide a **title** for your PR and write a **description** that explains the changes you’ve made and why they are important.
+3. Click **Create pull request**.
+
+#### 7. **Submit the PR for Review**
+Your Pull Request is now open, and the maintainers of the original repository can review your changes.
+
+---
+
+### Troubleshooting Tips:
+- **Check Branch Push**: Make sure you successfully pushed the branch to GitHub with:
+  ```bash
+  git push origin my-feature-branch
+  ```
+  
+- **Double-check Fork**: Ensure you are working on your forked repository and not the original repository.
+
+By following these steps, you can manually create a Pull Request even if no notification shows up after pushing your branch. Let me know if you need further help!
