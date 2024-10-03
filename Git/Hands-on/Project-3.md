@@ -156,3 +156,38 @@ If you're working in a team and using a collaborative workflow, instead of mergi
    - Push the feature branch and create a Pull Request on GitHub.
 
 By using the feature branch workflow, you can work on new features in isolation, avoid conflicts, and ensure your changes are reviewed before merging them into the main branch.
+
+**Issues Arised**
+
+The error message you're seeing indicates that the directory `terraform-zero-to-hero` has staged changes, and Git is refusing to remove it without further confirmation. To resolve this, you can use the `-f` (force) option to remove the staged content from the index.
+
+### Steps to Remove the Directory from Git's Staging Area:
+
+1. **Force removal from the staging area**:
+   Use the `-f` option to force Git to unstage `terraform-zero-to-hero`:
+
+   ```bash
+   git rm --cached -r -f terraform-zero-to-hero
+   ```
+
+   - `--cached`: Removes the file or directory from the staging area without deleting it from your local file system.
+   - `-r`: Recursive option to remove directories.
+   - `-f`: Forces the removal.
+
+2. **Add it to `.gitignore`**:
+   Prevent Git from tracking the directory in the future by adding it to `.gitignore`:
+
+   ```bash
+   echo "terraform-zero-to-hero/" >> .gitignore
+   ```
+
+3. **Commit the changes**:
+   After removing the directory from the staging area, commit the changes:
+
+   ```bash
+   git commit -m "Removed terraform-zero-to-hero from repository"
+   ```
+
+By doing this, the `terraform-zero-to-hero` directory will no longer be tracked by Git, but it will still remain in your local directory.
+
+Let me know if this resolves the issue or if you need further assistance!
