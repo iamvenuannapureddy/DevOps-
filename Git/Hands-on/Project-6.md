@@ -1,3 +1,4 @@
+<h1>Project-6</h1>
 **GitOps with Kubernetes** is an operational framework that applies DevOps best practices to infrastructure automation, leveraging Git as the single source of truth. When you integrate Git with Kubernetes through GitOps, changes committed to a Git repository (like Kubernetes manifests or Helm charts) trigger automatic updates to the Kubernetes environment using tools like ArgoCD or Flux.
 
 ### Steps for Setting Up GitOps with Kubernetes
