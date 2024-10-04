@@ -1,0 +1,15 @@
+ci-cd-pipeline/
+│
+├── .github/
+│   └── workflows/
+│       └── ci-cd-pipeline.yml         # GitHub Actions workflow file
+│
+├── app/
+│   ├── Dockerfile                       # Dockerfile for the application
+│   ├── app.js                           # Simple Node.js application
+│   ├── package.json                     # Node.js application dependencies
+│   ├── package-lock.json                # Node.js lock file
+│   └── .env                             # Environment variables (should be in .gitignore)
+│
+├── .gitignore                           # Git ignore file
+└── README.md                            # Project documentation
