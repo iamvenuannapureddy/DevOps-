@@ -1,5 +1,5 @@
 <h1>Project-2</h1>
-### **How to Contribute to Open-Source Projects on GitHub**
+How to Contribute to Open-Source Projects on GitHub
 
 Contributing to open-source projects is a great way to improve your coding skills and contribute to the community. Below is an **end-to-end guide** on how to find a project, make contributions, and create a Pull Request (PR) on GitHub.
 
