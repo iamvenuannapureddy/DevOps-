@@ -1,0 +1,171 @@
+<h1>EC2 specifications</h1>
+
+When creating an EC2 instance using Terraform, you need to specify various resource details and configurations for the instance. These specifications include attributes related to instance type, networking, security, storage, and more. Below are the key resource specifications to consider when creating an EC2 instance:
+
+### 1. **AMI (Amazon Machine Image)**
+   - **Key:** `ami`
+   - Specifies the ID of the AMI to use for the instance. The AMI determines the operating system, installed software, and configuration.
+   - Example:
+     ```hcl
+     ami = "ami-12345678"
+     ```
+
+### 2. **Instance Type**
+   - **Key:** `instance_type`
+   - Defines the EC2 instance type (e.g., `t2.micro`, `m5.large`), which determines the vCPU, memory, and network performance.
+   - Example:
+     ```hcl
+     instance_type = "t2.micro"
+     ```
+
+### 3. **Key Pair**
+   - **Key:** `key_name`
+   - Specifies the name of the key pair to use for SSH access to the instance.
+   - Example:
+     ```hcl
+     key_name = "my-key"
+     ```
+
+### 4. **Security Groups**
+   - **Key:** `vpc_security_group_ids`
+   - Specifies the security group IDs that control the inbound and outbound traffic to the instance.
+   - Example:
+     ```hcl
+     vpc_security_group_ids = ["sg-12345678"]
+     ```
+
+### 5. **Subnet**
+   - **Key:** `subnet_id`
+   - Specifies the subnet in which to launch the instance. This determines the instance's placement in a VPC.
+   - Example:
+     ```hcl
+     subnet_id = "subnet-12345678"
+     ```
+
+### 6. **Tags**
+   - **Key:** `tags`
+   - Assigns tags to the instance for identification and organization.
+   - Example:
+     ```hcl
+     tags = {
+       Name = "MyEC2Instance"
+     }
+     ```
+
+### 7. **Block Device Mapping (Storage)**
+   - **Key:** `root_block_device`, `ebs_block_device`
+   - Specifies the block devices to attach to the instance, such as the root EBS volume and additional EBS volumes.
+   - Example:
+     ```hcl
+     root_block_device {
+       volume_size = 20
+       volume_type = "gp2"
+     }
+     ```
+
+### 8. **IAM Role and Instance Profile**
+   - **Key:** `iam_instance_profile`
+   - Specifies the IAM role to attach to the instance for granting AWS service access.
+   - Example:
+     ```hcl
+     iam_instance_profile = "my-instance-profile"
+     ```
+
+### 9. **User Data**
+   - **Key:** `user_data`
+   - Provides a script or cloud-init configuration to run when the instance launches, often used for bootstrapping (installing packages, starting services).
+   - Example:
+     ```hcl
+     user_data = <<-EOF
+       #!/bin/bash
+       yum install -y httpd
+       systemctl start httpd
+     EOF
+     ```
+
+### 10. **Elastic IP (Optional)**
+   - **Key:** `associate_public_ip_address`
+   - Specifies whether to assign a public IP to the instance.
+   - Example:
+     ```hcl
+     associate_public_ip_address = true
+     ```
+
+### 11. **Monitoring**
+   - **Key:** `monitoring`
+   - Enables or disables detailed CloudWatch monitoring for the instance.
+   - Example:
+     ```hcl
+     monitoring = true
+     ```
+
+### 12. **Availability Zone (AZ)**
+   - **Key:** `availability_zone`
+   - Specifies the AZ within the region where the instance should be launched.
+   - Example:
+     ```hcl
+     availability_zone = "us-east-1a"
+     ```
+
+### 13. **Tenancy**
+   - **Key:** `tenancy`
+   - Specifies whether to run the instance on shared hardware (`default`) or dedicated hardware (`dedicated`).
+   - Example:
+     ```hcl
+     tenancy = "default"
+     ```
+
+### 14. **Placement Group (Optional)**
+   - **Key:** `placement_group`
+   - Specifies the placement group in which to launch the instance, which can help with high network throughput between instances.
+   - Example:
+     ```hcl
+     placement_group = "my-placement-group"
+     ```
+
+### 15. **Disable API Termination (Optional)**
+   - **Key:** `disable_api_termination`
+   - Prevents the instance from being terminated via the API (useful for protection).
+   - Example:
+     ```hcl
+     disable_api_termination = true
+     ```
+
+### 16. **Private IP Address (Optional)**
+   - **Key:** `private_ip`
+   - Specifies a private IP address to assign to the instance.
+   - Example:
+     ```hcl
+     private_ip = "10.0.1.5"
+     ```
+
+### Example Terraform Configuration for EC2
+```hcl
+resource "aws_instance" "example" {
+  ami                         = "ami-12345678"
+  instance_type               = "t2.micro"
+  key_name                    = "my-key"
+  vpc_security_group_ids      = ["sg-12345678"]
+  subnet_id                   = "subnet-12345678"
+  iam_instance_profile        = "my-instance-profile"
+  associate_public_ip_address = true
+  monitoring                  = true
+
+  root_block_device {
+    volume_size = 20
+    volume_type = "gp2"
+  }
+
+  tags = {
+    Name = "MyEC2Instance"
+  }
+
+  user_data = <<-EOF
+    #!/bin/bash
+    yum install -y httpd
+    systemctl start httpd
+  EOF
+}
+```
+
+These are the core specifications, but you can customize them further based on your project’s requirements.
