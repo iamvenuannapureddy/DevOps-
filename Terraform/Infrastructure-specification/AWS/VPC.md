@@ -1,0 +1,225 @@
+<h1>VPC</h1>
+When creating a VPC using Terraform, several resource specifications and configurations need to be defined to create the VPC and its associated components, such as subnets, route tables, and internet gateways. Below are the key specifications for defining a VPC in Terraform:
+
+### 1. **CIDR Block**
+   - **Key:** `cidr_block`
+   - Defines the IP address range for the VPC in CIDR notation. This is the primary configuration needed when creating a VPC.
+   - Example:
+     ```hcl
+     cidr_block = "10.0.0.0/16"
+     ```
+
+### 2. **Enable DNS Support**
+   - **Key:** `enable_dns_support`
+   - Specifies whether DNS resolution is enabled for the VPC. By default, it's enabled.
+   - Example:
+     ```hcl
+     enable_dns_support = true
+     ```
+
+### 3. **Enable DNS Hostnames**
+   - **Key:** `enable_dns_hostnames`
+   - Specifies whether instances launched in the VPC get public DNS hostnames. This is often needed if you want instances to be reachable by public DNS names.
+   - Example:
+     ```hcl
+     enable_dns_hostnames = true
+     ```
+
+### 4. **Tags**
+   - **Key:** `tags`
+   - Assigns tags to the VPC for identification and organization.
+   - Example:
+     ```hcl
+     tags = {
+       Name = "MyVPC"
+     }
+     ```
+
+### 5. **Instance Tenancy**
+   - **Key:** `instance_tenancy`
+   - Specifies the instance tenancy option for the VPC. Options include `default` for shared hardware or `dedicated` for instances running on dedicated hardware.
+   - Example:
+     ```hcl
+     instance_tenancy = "default"
+     ```
+
+### Example Terraform Configuration for VPC
+```hcl
+resource "aws_vpc" "main" {
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+  instance_tenancy     = "default"
+
+  tags = {
+    Name = "MainVPC"
+  }
+}
+```
+
+### 6. **Additional Components for a Complete VPC Setup**
+In addition to the VPC, you typically need to create other AWS resources such as subnets, route tables, internet gateways, and NAT gateways to make your VPC functional. Below are the essential components:
+
+#### 6.1 **Subnets**
+- **Key:** `cidr_block`, `availability_zone`, `map_public_ip_on_launch`
+- Subnets are used to divide the VPC into smaller network ranges. Public and private subnets are common.
+- Example:
+  ```hcl
+  resource "aws_subnet" "public_subnet" {
+    vpc_id            = aws_vpc.main.id
+    cidr_block        = "10.0.1.0/24"
+    availability_zone = "us-east-1a"
+    map_public_ip_on_launch = true
+
+    tags = {
+      Name = "PublicSubnet"
+    }
+  }
+  ```
+
+#### 6.2 **Internet Gateway**
+- **Key:** `vpc_id`
+- An internet gateway allows instances in the VPC to connect to the internet.
+- Example:
+  ```hcl
+  resource "aws_internet_gateway" "igw" {
+    vpc_id = aws_vpc.main.id
+
+    tags = {
+      Name = "MainIGW"
+    }
+  }
+  ```
+
+#### 6.3 **Route Table**
+- **Key:** `vpc_id`, `route`
+- Route tables define the network routes for traffic within and outside the VPC. For example, routes to the internet gateway for public subnets.
+- Example:
+  ```hcl
+  resource "aws_route_table" "public_route_table" {
+    vpc_id = aws_vpc.main.id
+
+    route {
+      cidr_block = "0.0.0.0/0"
+      gateway_id = aws_internet_gateway.igw.id
+    }
+
+    tags = {
+      Name = "PublicRouteTable"
+    }
+  }
+  ```
+
+#### 6.4 **Route Table Association**
+- **Key:** `subnet_id`, `route_table_id`
+- Associates a route table with a subnet.
+- Example:
+  ```hcl
+  resource "aws_route_table_association" "public_association" {
+    subnet_id      = aws_subnet.public_subnet.id
+    route_table_id = aws_route_table.public_route_table.id
+  }
+  ```
+
+#### 6.5 **NAT Gateway (For Private Subnets)**
+- **Key:** `allocation_id`, `subnet_id`
+- A NAT gateway is used to allow instances in private subnets to access the internet (e.g., for software updates) without being publicly accessible.
+- Example:
+  ```hcl
+  resource "aws_eip" "nat_eip" {
+    vpc = true
+  }
+
+  resource "aws_nat_gateway" "nat_gateway" {
+    allocation_id = aws_eip.nat_eip.id
+    subnet_id     = aws_subnet.public_subnet.id
+  }
+  ```
+
+#### 6.6 **Private Subnet**
+- Similar to the public subnet but without public IP addresses and no direct route to the internet. The NAT gateway is used to route internet-bound traffic.
+- Example:
+  ```hcl
+  resource "aws_subnet" "private_subnet" {
+    vpc_id            = aws_vpc.main.id
+    cidr_block        = "10.0.2.0/24"
+    availability_zone = "us-east-1b"
+
+    tags = {
+      Name = "PrivateSubnet"
+    }
+  }
+  ```
+
+### Example Full VPC Setup
+
+```hcl
+resource "aws_vpc" "main" {
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+  instance_tenancy     = "default"
+
+  tags = {
+    Name = "MainVPC"
+  }
+}
+
+resource "aws_subnet" "public_subnet" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = "us-east-1a"
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "PublicSubnet"
+  }
+}
+
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name = "MainIGW"
+  }
+}
+
+resource "aws_route_table" "public_route_table" {
+  vpc_id = aws_vpc.main.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
+  }
+
+  tags = {
+    Name = "PublicRouteTable"
+  }
+}
+
+resource "aws_route_table_association" "public_association" {
+  subnet_id      = aws_subnet.public_subnet.id
+  route_table_id = aws_route_table.public_route_table.id
+}
+
+resource "aws_eip" "nat_eip" {
+  vpc = true
+}
+
+resource "aws_nat_gateway" "nat_gateway" {
+  allocation_id = aws_eip.nat_eip.id
+  subnet_id     = aws_subnet.public_subnet.id
+}
+
+resource "aws_subnet" "private_subnet" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.2.0/24"
+  availability_zone = "us-east-1b"
+
+  tags = {
+    Name = "PrivateSubnet"
+  }
+}
+```
+
+This example covers the main components needed when creating a VPC in AWS using Terraform. You can add or remove components depending on the specific network requirements of your project.
