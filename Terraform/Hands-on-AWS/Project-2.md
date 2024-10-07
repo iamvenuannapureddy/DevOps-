@@ -38,9 +38,92 @@ aws-auto-scaling-lb/
 
 ---
 
-### **2. Terraform Module for EC2 Instance**
+### **2. Terraform EC2 Instance Module**
 
-The EC2 instance module will be reused from the previous project to launch instances in the Auto Scaling Group.
+In the `modules/ec2-instance/` directory, create a reusable Terraform module that provisions EC2 instances.
+
+#### **2.1. `main.tf` (Module Configuration)**
+
+This file provisions the EC2 instance with configurable AMI, instance type, and user data:
+
+```hcl
+resource "aws_instance" "this" {
+  ami           = var.ami_id
+  instance_type = var.instance_type
+  key_name      = var.key_name
+  user_data     = file("${path.module}/user_data.sh")
+
+  tags = {
+    Name = var.instance_name
+    Environment = var.environment
+  }
+}
+```
+
+#### **2.2. `variables.tf` (Module Input Variables)**
+
+Define input variables to make the EC2 instance configuration reusable:
+
+```hcl
+variable "ami_id" {
+  description = "AMI ID for the EC2 instance"
+  type        = string
+}
+
+variable "instance_type" {
+  description = "EC2 instance type (e.g., t2.micro, t2.large)"
+  type        = string
+}
+
+variable "key_name" {
+  description = "Key pair name for SSH access"
+  type        = string
+}
+
+variable "instance_name" {
+  description = "Name tag for the instance"
+  type        = string
+}
+
+variable "environment" {
+  description = "Environment (dev, test, prod)"
+  type        = string
+}
+```
+
+#### **2.3. `outputs.tf` (Module Outputs)**
+
+Capture important information about the EC2 instance, such as its public IP and instance ID:
+
+```hcl
+output "instance_id" {
+  description = "ID of the EC2 instance"
+  value       = aws_instance.this.id
+}
+
+output "public_ip" {
+  description = "Public IP address of the EC2 instance"
+  value       = aws_instance.this.public_ip
+}
+```
+
+#### **2.4. `user_data.sh` (User Data Script)**
+
+This script is passed to the EC2 instance on launch to automate initialization tasks:
+
+```bash
+#!/bin/bash
+# Example user data script to install Apache server
+
+sudo yum update -y
+sudo yum install -y httpd
+sudo systemctl start httpd
+sudo systemctl enable httpd
+echo "Hello from $(hostname)" > /var/www/html/index.html
+```
+
+---
+
 
 ### **3. Terraform Module for Auto Scaling Group (ASG)**
 
