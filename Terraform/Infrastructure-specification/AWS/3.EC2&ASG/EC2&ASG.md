@@ -1,4 +1,5 @@
 <h1>EC2-ASG</h1>
+
 When working with **EC2 instances** and **Auto Scaling Groups (ASGs)** using Terraform, the two are tightly connected because an **Auto Scaling Group** manages the lifecycle of EC2 instances. While EC2 instances provide compute resources, Auto Scaling ensures that the right number of instances are running to handle the demand for your application. Let’s break down the relationship and configurations you need to know to work with **EC2** and **Auto Scaling** together.
 
 ### 1. **EC2 Instance Creation**
