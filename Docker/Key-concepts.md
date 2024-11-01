@@ -103,4 +103,201 @@
    - `docker logs <container>`: View logs of a container.
    - `docker pull/push`: Download/upload images from/to a registry.
 
+Here’s an end-to-end explanation of essential Docker commands and what they do:
+
+### 1. **`docker pull`**
+   - **Usage**: Downloads an image from a Docker registry (e.g., Docker Hub) to your local machine.
+   - **Syntax**:
+     ```bash
+     docker pull <image_name>:<tag>
+     ```
+   - **Example**:
+     ```bash
+     docker pull nginx:latest
+     ```
+   - **Explanation**: This command fetches the specified version (`tag`) of an image, or the latest if no tag is specified, and stores it locally for use.
+
+### 2. **`docker build`**
+   - **Usage**: Builds a Docker image from a Dockerfile in the specified directory.
+   - **Syntax**:
+     ```bash
+     docker build -t <image_name>:<tag> <path_to_dockerfile>
+     ```
+   - **Example**:
+     ```bash
+     docker build -t myapp:1.0 .
+     ```
+   - **Explanation**: The `-t` flag tags the image with a name and version, and `.` specifies the current directory as the Dockerfile’s location.
+
+### 3. **`docker images`**
+   - **Usage**: Lists all images stored on your local machine.
+   - **Syntax**:
+     ```bash
+     docker images
+     ```
+   - **Explanation**: Shows image name, tag, ID, size, and creation date, helping track what’s available locally.
+
+### 4. **`docker run`**
+   - **Usage**: Creates and starts a new container from a Docker image.
+   - **Syntax**:
+     ```bash
+     docker run [options] <image_name>
+     ```
+   - **Example**:
+     ```bash
+     docker run -d -p 8080:80 nginx
+     ```
+   - **Explanation**:
+     - `-d` runs the container in the background.
+     - `-p` maps a container port to a host port (e.g., `8080` on the host to `80` in the container).
+   - **Common Options**:
+     - `-v` mounts a volume.
+     - `--name` assigns a custom name to the container.
+
+### 5. **`docker ps`**
+   - **Usage**: Lists all running containers.
+   - **Syntax**:
+     ```bash
+     docker ps
+     ```
+   - **Explanation**: Displays container IDs, names, image names, status, and ports. Use `docker ps -a` to list all containers, including stopped ones.
+
+### 6. **`docker stop` and `docker start`**
+   - **Usage**: Stops or starts a container.
+   - **Syntax**:
+     ```bash
+     docker stop <container_id_or_name>
+     docker start <container_id_or_name>
+     ```
+   - **Example**:
+     ```bash
+     docker stop my_container
+     docker start my_container
+     ```
+   - **Explanation**: These commands manage the container lifecycle by stopping (pausing execution) or starting (resuming execution) a container.
+
+### 7. **`docker rm`**
+   - **Usage**: Deletes a stopped container.
+   - **Syntax**:
+     ```bash
+     docker rm <container_id_or_name>
+     ```
+   - **Example**:
+     ```bash
+     docker rm my_container
+     ```
+   - **Explanation**: Removes a container permanently from the local system. Use `docker rm -f` to forcefully delete a running container.
+
+### 8. **`docker rmi`**
+   - **Usage**: Deletes a Docker image from the local machine.
+   - **Syntax**:
+     ```bash
+     docker rmi <image_name>:<tag>
+     ```
+   - **Example**:
+     ```bash
+     docker rmi myapp:1.0
+     ```
+   - **Explanation**: Frees up disk space by removing images that are no longer needed. Containers running on this image will need to be removed before the image can be deleted.
+
+### 9. **`docker exec`**
+   - **Usage**: Executes a command inside a running container.
+   - **Syntax**:
+     ```bash
+     docker exec -it <container_id_or_name> <command>
+     ```
+   - **Example**:
+     ```bash
+     docker exec -it my_container /bin/bash
+     ```
+   - **Explanation**: The `-it` flag enables interactive mode (useful for shell access). This is used for debugging or running commands within the container environment.
+
+### 10. **`docker logs`**
+   - **Usage**: Fetches logs from a running container.
+   - **Syntax**:
+     ```bash
+     docker logs <container_id_or_name>
+     ```
+   - **Example**:
+     ```bash
+     docker logs my_container
+     ```
+   - **Explanation**: Displays standard output (STDOUT) and standard error (STDERR) from the container. Use options like `--tail` or `-f` (follow) to view specific logs.
+
+### 11. **`docker tag`**
+   - **Usage**: Tags an existing image with a new name or tag.
+   - **Syntax**:
+     ```bash
+     docker tag <existing_image>:<tag> <new_image_name>:<new_tag>
+     ```
+   - **Example**:
+     ```bash
+     docker tag myapp:1.0 myrepo/myapp:latest
+     ```
+   - **Explanation**: This allows you to rename or retag images, which is especially useful before pushing images to a registry.
+
+### 12. **`docker push`**
+   - **Usage**: Uploads a tagged image to a Docker registry.
+   - **Syntax**:
+     ```bash
+     docker push <repository>/<image_name>:<tag>
+     ```
+   - **Example**:
+     ```bash
+     docker push myrepo/myapp:latest
+     ```
+   - **Explanation**: Publishes images to a registry (like Docker Hub or a private registry) so that they can be accessed and deployed from any location.
+
+### 13. **`docker pull`**
+   - **Usage**: Retrieves an image from a Docker registry to your local machine.
+   - **Syntax**:
+     ```bash
+     docker pull <repository>/<image_name>:<tag>
+     ```
+   - **Example**:
+     ```bash
+     docker pull myrepo/myapp:latest
+     ```
+   - **Explanation**: This downloads the specified image from the registry, making it available for creating new containers.
+
+### 14. **`docker network`**
+   - **Usage**: Manages networks for connecting containers.
+   - **Syntax**:
+     ```bash
+     docker network <subcommand> <network_name>
+     ```
+   - **Example**:
+     ```bash
+     docker network create my_network
+     docker network ls
+     ```
+   - **Explanation**: Networks allow communication between containers. Subcommands like `create`, `connect`, and `inspect` manage networks, while `ls` lists all available networks.
+
+### 15. **`docker volume`**
+   - **Usage**: Manages volumes for persistent data storage across container restarts.
+   - **Syntax**:
+     ```bash
+     docker volume <subcommand> <volume_name>
+     ```
+   - **Example**:
+     ```bash
+     docker volume create my_volume
+     docker volume ls
+     ```
+   - **Explanation**: Volumes provide a way to persist data outside of the container lifecycle. This is ideal for databases or other data-dependent applications.
+
+### 16. **`docker-compose`**
+   - **Usage**: Orchestrates multiple containers using a `docker-compose.yml` file.
+   - **Syntax**:
+     ```bash
+     docker-compose <command>
+     ```
+   - **Example**:
+     ```bash
+     docker-compose up -d
+     docker-compose down
+     ```
+   - **Explanation**: Compose simplifies the management of multi-container applications, using commands like `up` (to start services), `down` (to stop services), and `logs` (to view combined logs). It’s widely used in development and local testing.
+
+By understanding these commands and their options, you’ll be able to manage Docker images, containers, networks, volumes, and multi-container applications effectively. Each command plays a role in setting up, running, managing, and scaling Docker applications.
 By mastering Docker, you’ll be able to efficiently manage and deploy applications in a consistent and scalable manner across various environments.
