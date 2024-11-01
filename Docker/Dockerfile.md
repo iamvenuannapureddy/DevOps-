@@ -81,6 +81,11 @@ Here’s a focused breakdown of the main points to cover when explaining a Docke
    - **Explanation**: Cleaning up after package installations and using `.dockerignore` ensures a lean image, which minimizes storage requirements and speeds up deployment.
 
 
+      ```
+
+### Example Dockerfile Summary
+Here’s a complete example summarizing best practices:
+```Dockerfile
 # Use a lightweight base image
 FROM python:3.9-slim
 
@@ -106,5 +111,6 @@ HEALTHCHECK CMD curl -f http://localhost:$PORT/health || exit 1
 
 # Run application
 CMD ["python", "app.py"]
+```
 
-This set of main points provides a concise yet comprehensive explanation of Dockerfile essentials and best practices. Would you like any specific area expanded?
+This approach to Dockerfile writing will create efficient, secure, and manageable Docker images for development, testing, and production. Let me know if you'd like further details on any specific command or optimization!
