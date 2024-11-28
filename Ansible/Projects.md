@@ -1,4 +1,4 @@
-<h1>list of Ansible project ideas ranging from beginner to expert levels:</h1> 
+<h1>List of Ansible project ideas ranging from beginner to expert levels:</h1> 
 
 ---
 
