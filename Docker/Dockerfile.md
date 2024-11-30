@@ -2,7 +2,7 @@
 
 A Dockerfile is a text file containing instructions to build a Docker image. Let’s go through the common Dockerfile instructions step by step with examples:
 
-1. FROM
+### 1. FROM
 
 Specifies the base image for the Docker image.
 	•	Syntax: FROM <image>:<tag>
@@ -14,7 +14,7 @@ FROM python:3.9-slim
 
 	•	This uses the lightweight Python 3.9 slim image as the base.
 
-2. LABEL
+### 2. LABEL
 
 Adds metadata to the image.
 	•	Syntax: LABEL key="value"
