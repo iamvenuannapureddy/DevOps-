@@ -73,9 +73,8 @@ The architecture consists of:
 #### **3. Configure the AWS Services**
 1. **Set up the VPC**:
    - Create a VPC with public and private subnets.
-   - Store RDS on Private subnets and EC2 instances on public or private subnets.
    - Configure **NAT Gateway** and **Internet Gateway** for outbound traffic.
-**Note**: we have to know in this section about Region,VPC, AZ's, subnets(private,public),Route Tables, NAT Gateway, Internet Gateway, Security Groups, NACL's (Network Access Control List), Elastic IP, VPC Peering, VPN and DIR  
+
 2. **Set up RDS**:
    - Launch an Amazon RDS instance with a MySQL/PostgreSQL database.
    - Configure security groups to allow access only from the Elastic Beanstalk environment.
